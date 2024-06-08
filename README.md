@@ -22,7 +22,7 @@ If you use arch you can use this script instead of doing all the steps individua
 You can do this in the terminal with:
 
 ```
-git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+git clone -b v0.0.1 https://github.com/KCkingcollin/kcs-reasonable-configs
 cd kcs-reasonable-configs
 ```
 
@@ -105,7 +105,7 @@ hyprpm enable hy3
 note: if hyprpm throws an error when updating run:
 ```
 sudo rm -r ~/Hyprland/ 
-git clone https://github.com/hyprwm/Hyprland.git 
+git clone -b v0.0.1 https://github.com/hyprwm/Hyprland.git 
 ```
 
 #### Other/optional
@@ -136,7 +136,7 @@ flatpak install org.mozilla.firefox/x86_64/stable
 
 1. Clone this repo into you're home folder
 ```
-git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+git clone -b v0.0.1 https://github.com/KCkingcollin/kcs-reasonable-configs
 ```
 
 2. Copy files into you're config directory
