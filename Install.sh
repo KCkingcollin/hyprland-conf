@@ -18,7 +18,7 @@ then
             echo "%sudo	ALL=(ALL:ALL) ALL" > /etc/sudoers.d/sudo-enable 
         fi
         cd "/home/$accountName"
-        sudo -S -i -u $accountName git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+        sudo -S -i -u $accountName git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
         cd "/home/$accountName/kcs-reasonable-configs"
         su -c "./Install.sh" $accountName
         return
@@ -31,7 +31,7 @@ then
             echo "%sudo	ALL=(ALL:ALL) ALL" > /etc/sudoers.d/sudo-enable 
         fi
         cd "/home/$accountName"
-        sudo -S -i -u $accountName git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+        sudo -S -i -u $accountName git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
         cd "/home/$accountName/kcs-reasonable-configs"
         su $accountName
         su -c "./Install.sh" $accountName
@@ -70,7 +70,7 @@ then
     then 
         sudo -S rm -r ./kcs-reasonable-configs/
     fi
-    git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+    git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
     cd kcs-reasonable-configs
 fi
 mv "$HOME/.config/nvim" "$HOME/.config/nvim.bac" 

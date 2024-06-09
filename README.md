@@ -22,7 +22,7 @@ If you use arch you can use this script instead of doing all the steps individua
 You can do this in the terminal with:
 
 ```
-git clone https://github.com/KCkingcollin/kcs-reasonable-configs
+git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
 cd kcs-reasonable-configs
 ```
 
