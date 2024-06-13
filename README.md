@@ -22,7 +22,7 @@ If you use arch you can use this script instead of doing all the steps individua
 You can do this in the terminal with:
 
 ```
-git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
+git clone -b v0.0.3 https://github.com/KCkingcollin/kcs-reasonable-configs
 cd kcs-reasonable-configs
 ```
 
@@ -141,7 +141,7 @@ flatpak install org.mozilla.firefox/x86_64/stable
 
 1. Clone this repo into Your home folder
 ```
-git clone -b stable https://github.com/KCkingcollin/kcs-reasonable-configs
+git clone -b v0.0.3 https://github.com/KCkingcollin/kcs-reasonable-configs
 ```
 
 2. Copy files into your config directory
