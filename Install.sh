@@ -2,7 +2,7 @@
 
 if [ $USER = 'root' ]
 then
-    pacman -Syyu --noconfirm sudo hyprland hyprpaper waybar swaync playerctl polkit-gnome gnome-keyring pipewire wireplumber xdg-desktop-portal-hyprland otf-geist-mono-nerd otf-font-awesome pavucontrol nm-connection-editor networkmanager blueman git base-devel flatpak nemo rofi-wayland neovim foot gdm cpio meson cmake zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search neofetch kdeconnect npm gtk2 gtk3 gtk4 hyprwayland-scanner
+    pacman -Syyu --noconfirm sudo hyprland hyprpaper waybar swaync playerctl polkit-gnome gnome-keyring pipewire wireplumber xdg-desktop-portal-hyprland otf-geist-mono-nerd otf-font-awesome pavucontrol nm-connection-editor networkmanager blueman git base-devel flatpak nemo rofi-wayland neovim kitty gdm cpio meson cmake zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search neofetch kdeconnect npm gtk2 gtk3 gtk4 hyprwayland-scanner gnome-control-center python xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs firefox
     echo "You need to run this script as a sudo user NOT as root"
     echo "Create a new account?"
     read -p "[Y/n]: " answer
@@ -38,7 +38,7 @@ then
         return
     fi
 else
-    sudo -S pacman -Syyu --noconfirm sudo hyprland hyprpaper waybar swaync playerctl polkit-gnome gnome-keyring pipewire wireplumber xdg-desktop-portal-hyprland otf-geist-mono-nerd otf-font-awesome pavucontrol nm-connection-editor networkmanager blueman git base-devel flatpak nemo rofi-wayland neovim foot gdm cpio meson cmake zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search neofetch kdeconnect npm gtk2 gtk3 gtk4 hyprwayland-scanner
+    sudo -S pacman -Syyu --noconfirm sudo hyprland hyprpaper waybar swaync playerctl polkit-gnome gnome-keyring pipewire wireplumber xdg-desktop-portal-hyprland otf-geist-mono-nerd otf-font-awesome pavucontrol nm-connection-editor networkmanager blueman git base-devel flatpak nemo rofi-wayland neovim kitty gdm cpio meson cmake zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search neofetch kdeconnect npm gtk2 gtk3 gtk4 hyprwayland-scanner gnome-control-center python xdg-desktop-portal xdg-desktop-portal-gtk xdg-user-dirs firefox
 fi
 
 if [ "$(pacman -Q | grep -o -m 1 yay)" != "yay" ];
@@ -53,11 +53,9 @@ then
     cd ..
 fi
 
-# yay -S --noconfirm hyprshot nvim-packer-git hy3-git oh-my-zsh-git hyprland-git hyprland-plugin-hyprbars-git nwg-shell
-yay -S --noconfirm hyprshot nvim-packer-git oh-my-zsh-git nwg-shell pamac-all
+yay -S --noconfirm hyprshot nvim-packer-git oh-my-zsh-git nwg-displays pamac-all
 
 sudo -S flatpak -y remote-add --system flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo -S flatpak -y install org.mozilla.firefox/x86_64/stable
 sudo -S flatpak override --filesystem="$HOME"/.themes
 sudo -S flatpak override --filesystem="$HOME"/.icons
 sudo -S flatpak override --filesystem="$HOME"/.gtkrc-2.0
@@ -74,7 +72,7 @@ then
     cd kcs-reasonable-configs
 fi
 mv "$HOME/.config/nvim" "$HOME/.config/nvim.bac" 
-mv "$HOME/.config/foot" "$HOME/.config/foot.bac" 
+mv "$HOME/.config/kitty" "$HOME/.config/foot.bac" 
 mv "$HOME/.config/hypr" "$HOME/.config/hypr.bac" 
 mv "$HOME/.config/waybar" "$HOME/.config/waybar.bac" 
 mv "$HOME/.config/swaync" "$HOME/.config/swaync.bac" 
@@ -87,11 +85,13 @@ mv "$HOME/.gtkrc-2.0" "$HOME/.gtkrc-2.0.bac"
 
 mkdir $HOME/.config
 
-yes | cp -rf ./nvim ./foot ./hypr ./waybar ./swaync ./rofi ./castle-shell "$HOME/.config/"
+yes | cp -rf ./nvim ./kitty ./hypr ./waybar ./swaync ./rofi ./castle-shell "$HOME/.config/"
 
 yes | cp -rf ./.zshrc ./.themes ./.icons ./.gtkrc-2.0 "$HOME/"
 
-sudo -S cp -rf ./switch-DEs ./color-checker /usr/bin/
+sudo -S cp -rf ./switch-DEs.sh ./color-checker.py /usr/bin/
+sudo -S mv /usr/bin/color-checker.py /usr/bin/color-checker
+sudo -S mv /usr/bin/switch-DEs.sh /usr/bin/switch-DEs
 
 sudo -S cp -rf ./theme-check.service ./waybar-hyprland.service /usr/lib/systemd/user/
 
@@ -103,7 +103,7 @@ mv /"$HOME"/.config/hypr/hyprland.conf /"$HOME"/.config/hypr/hyprland.conf.bac
 
 yes | cp -rf ./hyprland.conf.once /"$HOME"/.config/hypr/hyprland.conf
 
-sudo -S chsh -s /bin/zsh $USER
+sudo -S chsh -s /bin/zsh "$USER"
 
 if [ "$(ls "$HOME/Pictures/" | grep -o -m 1 "background.jpg")" != "background.jpg" ];
 then
@@ -112,5 +112,14 @@ then
 fi
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# make damn sure it gets the environment before running hyprland the first time
+systemctl --user import-environment
+
+sudo -S bash -c 'echo "[User]                        
+Session=hyprland
+XSession=hyprland
+Icon="$HOME"/.face
+SystemAccount=false" > /var/lib/AccountsService/users/'$USER''
 
 sudo -S systemctl start switch-DEs.service
