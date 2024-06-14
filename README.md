@@ -1,5 +1,5 @@
 # KC's Reasonable Hyprland Configs
-This repo is for the default configs I plan to use in my upcoming castle-sell project, it also has some scripts and services related to the theme.
+This repo is for the default configs I plan to use in my upcoming [castle-sell](https://github.com/KCkingcollin/castle-shell) project, it also has some scripts and services related to the theme.
 
 The code in this repo can be used as a standalone thing, and it can even be used to install everything automatically to a arch based distro, it'll be constantly tested against both a fresh arch install and A Endeavor OS installation with cinnamon installed before getting pushed to stable.
 
